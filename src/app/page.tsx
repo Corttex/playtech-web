@@ -16,6 +16,7 @@ import CartToastNotification from "@/components/store/CartToastNotification";
 import FloatingComparePill from "@/components/store/FloatingComparePill";
 import ProductComparisonModal from "@/components/store/ProductComparisonModal";
 import ProductDemoModal from "@/components/store/ProductDemoModal";
+import MobileBottomDock from "@/components/store/MobileBottomDock";
 
 export default function HomePage() {
   const {
@@ -106,6 +107,9 @@ export default function HomePage() {
 
       {/* ── RODAPÉ ── */}
       {!isCheckout && <PlayTechFooterComplete />}
+
+      {/* ── DOCK MOBILE INFERIOR DE ACESSIBILIDADE ── */}
+      {!isCheckout && <MobileBottomDock />}
 
       <SlideOverCartGamified />
       <CartToastNotification />
