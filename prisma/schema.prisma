@@ -1,0 +1,209 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// ==========================================
+// 1. CATÁLOGO INTELIGENTE & MULTICANAL
+// ==========================================
+
+model Product {
+  id                  String   @id @default(uuid())
+  sku                 String   @unique // Ex: "HY320-BLK", "X3-PRO-8K", "CS-4404"
+  ean                 String?  @unique // GTIN/EAN para bipagem e Marketplaces
+  
+  // Separação entre Nome Fiscal (NFe) e Nome Comercial (Vitrine)
+  invoiceTitle        String   // Ex: "PROJETOR MULTIMIDIA HY320 BIVOLT PRETO IMP"
+  storefrontTitle     String   // Ex: "Mini Projetor Smart HY320 Full HD 4K Android TV Wi-Fi 6"
+  marketplaceTitleML  String?  // Max 60 chars otimizado para busca no Mercado Livre
+  slug                String   @unique
+  
+  // Copywriting & Conteúdo Rico
+  shortHeadline       String?  // Ex: "Cinema de até 150 polegadas na parede do seu quarto"
+  descriptionHtml     String   @db.Text
+  technicalSpecsJson  Json     // Ex: {"Resolução": "1080p Nativo / 4K Support", "Conectividade": "Wi-Fi 6 + BT 5.2"}
+  
+  // Precificação & Margem
+  costPrice           Decimal  @db.Decimal(10, 2)
+  baseSalePrice       Decimal  @db.Decimal(10, 2)
+  compareAtPrice      Decimal? @db.Decimal(10, 2) // Preço "De" riscado
+  pixDiscountPercent  Decimal  @default(5.00) @db.Decimal(5, 2)
+  
+  // Motor Black Friday & Ofertas Relâmpago
+  isBlackFridayDeal   Boolean  @default(false)
+  bfSalePrice         Decimal? @db.Decimal(10, 2)
+  bfStockLimit        Int?     // Lote promocional dedicado (Ex: 30 unidades)
+  bfSoldCount         Int      @default(0) // Usado na barra "87% Vendido"
+  
+  // Controle de Estoque Centralizado
+  stockPhysical       Int      @default(0)
+  stockReserved       Int      @default(0) // Reservado em PIX pendente (TTL 30 min)
+  safetyStockBuffer   Int      @default(1) // Trava de segurança para pausar ML/Shopee
+  
+  // Peso e Dimensões (Ocultos na vitrine, usados apenas no cálculo de frete)
+  weightKg            Decimal  @db.Decimal(8, 3)
+  lengthCm            Int
+  widthCm             Int
+  heightCm            Int
+  
+  // Tributário & NFe Nativa (Certificado A1)
+  ncm                 String?
+  cest                String?
+  cfopDefault         String   @default("5102")
+  originCode          Int      @default(1) // 1 = Estrangeira (Importação Direta) / 2 = Adq. Mercado Interno
+  
+  // Relacionamentos
+  categoryId          String
+  category            Category @relation(fields: [categoryId], references: [id])
+  images              ProductImage[]
+  channelListings     MarketplaceListing[]
+  landingPages        LandingPage[]
+  orderBumpsTrigger   OrderBumpRule[] @relation("TriggerProduct")
+  orderBumpsOffer     OrderBumpRule[] @relation("OfferProduct")
+  
+  isActive            Boolean  @default(true)
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+}
+
+model Category {
+  id              String    @id @default(uuid())
+  name            String    // Ex: "Áudio & Som", "Gaming & Retrô", "Projetores & Câmeras", "Smartwatches", "Casa & Utensílios", "Automotivo", "Iluminação", "Carregadores & Cabos"
+  slug            String    @unique
+  iconName        String?
+  bentoHighlight  Boolean   @default(false)
+  products        Product[]
+}
+
+model ProductImage {
+  id          String  @id @default(uuid())
+  productId   String
+  product     Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  url         String
+  altText     String?
+  position    Int     @default(0)
+  isThumbnail Boolean @default(false)
+}
+
+// ==========================================
+// 2. CONFIGURAÇÃO GLOBAL, BLACK FRIDAY & LPs
+// ==========================================
+
+model StoreConfig {
+  id                        String    @id @default("global-config")
+  blackFridayModeActive     Boolean   @default(false) // CHAVE MESTRA GLOBAL
+  bfCampaignTitle           String    @default("BLACK FRIDAY PLAYTECH: TECNOLOGIA COM ATÉ 60% OFF")
+  bfCountdownEnd            DateTime?
+  freeShippingThreshold     Decimal   @default(250.00) @db.Decimal(10, 2)
+  maxInstallmentsNoInterest Int       @default(12)
+  blingSyncMode             String    @default("HYBRID_SHADOW") // NATIVE_ONLY | HYBRID_SHADOW
+}
+
+model OrderBumpRule {
+  id               String   @id @default(uuid())
+  name             String
+  triggerProductId String?
+  triggerProduct   Product? @relation("TriggerProduct", fields: [triggerProductId], references: [id])
+  offerProductId   String
+  offerProduct     Product  @relation("OfferProduct", fields: [offerProductId], references: [id])
+  specialBumpPrice Decimal  @db.Decimal(10, 2)
+  pitchText        String   // Ex: "Falta R$ 0,01 para seu FRETE GRÁTIS! Leve este Cabo USB-C Turbo por R$ 14,99 e economize o valor do frete!"
+  isActive         Boolean  @default(true)
+}
+
+model LandingPage {
+  id                String   @id @default(uuid())
+  slug              String   @unique // Ex: "projetor-hy320-cinema-4k" ou "game-stick-x3-pro-50mil-jogos"
+  productId         String
+  product           Product  @relation(fields: [productId], references: [id])
+  heroHeadline      String
+  heroSubheadline   String
+  videoPreviewUrl   String?
+  bentoFeaturesJson Json     // 4 a 6 blocos visuais destacando pontos fortes
+  comparisonJson    Json     // Comparativo PlayTech vs Concorrência Genérica
+  bundlesJson       Json     // Kits (Leve 1 por R$ 249,99 | Leve 2 por R$ 449,90)
+  socialProofJson   Json     // Reviews com fotos reais de clientes
+  isActive          Boolean  @default(true)
+}
+
+// ==========================================
+// 3. HUB MARKETPLACES & ERP FISCAL/LOGÍSTICO
+// ==========================================
+
+enum SalesChannel {
+  STOREFRONT
+  MERCADO_LIVRE
+  SHOPEE
+  AMAZON
+  TIKTOK_SHOP
+}
+
+model MarketplaceListing {
+  id                  String       @id @default(uuid())
+  productId           String
+  product             Product      @relation(fields: [productId], references: [id])
+  channel             SalesChannel
+  externalListingId   String       // Ex: "MLB39481029"
+  channelPrice        Decimal      @db.Decimal(10, 2)
+  channelFeePercent   Decimal      @db.Decimal(5, 2)
+  fixedFeeAmount      Decimal      @default(0.00) @db.Decimal(10, 2)
+  syncStockEnabled    Boolean      @default(true)
+  status              String       @default("ACTIVE")
+  lastSyncedAt        DateTime?
+}
+
+model MarketplaceQuestion {
+  id                 String       @id @default(uuid())
+  channel            SalesChannel
+  externalQuestionId String       @unique
+  productId          String
+  customerQuestion   String
+  aiSuggestedReply   String?      // Gerada pelo Gemini com base no technicalSpecsJson
+  finalReplySent     String?
+  status             String       @default("PENDING") // PENDING, AUTO_REPLIED, MANUAL_REPLIED
+  createdAt          DateTime     @default(now())
+}
+
+model Order {
+  id                  String       @id @default(uuid())
+  orderNumber         Int          @unique @default(autoincrement())
+  channel             SalesChannel @default(STOREFRONT)
+  externalOrderId     String?
+  
+  customerName        String
+  customerEmail       String
+  customerPhone       String
+  customerCpfCnpj     String
+  shippingAddressJson Json
+  
+  subtotalAmount      Decimal      @db.Decimal(10, 2)
+  discountAmount      Decimal      @default(0.00) @db.Decimal(10, 2)
+  shippingAmount      Decimal      @db.Decimal(10, 2)
+  totalAmount         Decimal      @db.Decimal(10, 2)
+  netProfitEstimated  Decimal?     @db.Decimal(10, 2)
+  
+  paymentGateway      String       // GETNET, MERCADOPAGO, ASAAS, PAGARME
+  paymentMethod       String       // PIX, CREDIT_CARD
+  paymentStatus       String       // PENDING, PAID, REFUNDED
+  pixCopyPaste        String?
+  
+  // Emissão Fiscal Nativa (Certificado A1 .pfx)
+  nfeStatus           String       @default("PENDING") // PENDING, AUTHORIZED, REJECTED
+  nfeNumber           String?
+  nfeKey              String?
+  nfeXmlUrl           String?
+  nfeDanfePdfUrl      String?
+  
+  // Expedição
+  shippingCarrier     String?
+  trackingCode        String?
+  shippingLabelPdfUrl String?
+  fulfillmentStatus   String       @default("AWAITING_PAYMENT") // AWAITING_PAYMENT, PICKING, PACKED, SHIPPED, DELIVERED
+  
+  createdAt           DateTime     @default(now())
+  updatedAt           DateTime     @updatedAt
+}

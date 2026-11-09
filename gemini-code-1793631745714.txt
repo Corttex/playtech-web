@@ -1,0 +1,39 @@
+playtech-os/
+├── prisma/
+│   ├── schema.prisma              # Schema completo da Parte 1
+│   └── seed-playtech.ts           # Seed com os produtos reais da PlayTech (HY320, Game Stick X3, Kimiso, etc.)
+├── src/
+│   ├── app/
+│   │   ├── (storefront)/          # Vitrine Pública Ultra-Rápida
+│   │   │   ├── page.tsx           # Home com Bento Grid + Modo Black Friday Reativo
+│   │   │   ├── produto/[slug]/    # Página de Produto com Compra Rápida PIX
+│   │   │   ├── lp/[slug]/         # Motor de Landing Pages Cinematográficas
+│   │   │   └── checkout/          # Checkout Transparente de 1 Página (PIX + Cartão 12x)
+│   │   ├── (admin)/               # Backoffice & ERP PlayTech OS
+│   │   │   └── admin/
+│   │   │       ├── page.tsx       # Command Center & DRE em Tempo Real
+│   │   │       ├── catalogo/      # Gestor de Produtos + Higienizador IA
+│   │   │       ├── black-friday/  # Central de Campanhas, Lotes & Gerador de LPs
+│   │   │       ├── marketplaces/  # Hub Mercado Livre, Shopee & IA Respondedora
+│   │   │       └── expedicao/     # Emissão NFe Certificado A1 + Etiquetas de Frete
+│   │   └── api/
+│   │       ├── webhooks/
+│   │       │   ├── payment/       # Confirmação instantânea PIX/Cartão
+│   │       │   ├── mercadolivre/  # Sincronia de Estoque e Perguntas ML
+│   │       │   └── shopee/        # Sincronia de Estoque Shopee
+│   │       └── sync/
+│   │           └── import-legacy/ # Script migrador do WordPress/Bling atual
+│   ├── components/
+│   │   ├── store/
+│   │   │   ├── BentoHero.tsx
+│   │   │   ├── ProductCardClean.tsx
+│   │   │   ├── SlideOverCartGamified.tsx
+│   │   │   └── BlackFridayTopBar.tsx
+│   │   └── admin/
+│   │       ├── OmnichannelPricingMatrix.tsx
+│   │       ├── AiProductBeautifierModal.tsx
+│   │       └── NfeCertificateManager.tsx
+│   └── lib/
+│       ├── pricing-engine.ts      # Fórmula de Markup Reverso por Canal
+│       ├── free-shipping-bump.ts  # Algoritmo de Destrava Frete Grátis R$ 250
+│       └── nfe-signer.ts          # Integração Certificado Digital A1

@@ -1,0 +1,163 @@
+{
+  "brand": {
+    "name": "PlayTech Store",
+    "legalName": "PLAYTECH BRASIL IMPORTADOS",
+    "cnpj": "38.248.064/0001-09",
+    "domain": "https://playtechbr.com.br",
+    "tagline": "Tecnologia que transforma! Descubra os dispositivos mais inovadores para facilitar seu dia.",
+    "institutionalDescription": "Inovamos para conectar você ao futuro, oferecendo soluções que simplificam e transformam sua vida. Estamos prontos para atender às suas necessidades com excelência, seja no atacado ou no varejo.",
+    "address": {
+      "street": "Quadra QE 38 CONJUNTO G, Lote 19",
+      "neighborhood": "Guará II",
+      "city": "Brasília",
+      "state": "DF",
+      "cep": "71.070-072"
+    },
+    "contacts": {
+      "whatsapp": "+55 61 99661-3292",
+      "whatsappDisplay": "(61) 99661-3292",
+      "sacEmail": "comercial@playtech.com.br",
+      "b2bEmail": "comercial@playtech.com.br",
+      "supportHours": "Segunda a Sexta: 08h às 18h | Sábado: 08h às 13h",
+      "instagram": "https://www.instagram.com/playtech.brasil/",
+      "facebook": "https://www.facebook.com/people/Play-Tech-Technology/61567487230253/"
+    }
+  },
+  "headerMotorolaStyle": {
+    "topPromoStrip": {
+      "text": "FRETE GRÁTIS nas compras acima de R$ 250,00 | Parcelamento em até 12x sem juros | Pagamento Rápido via Cartão e PIX",
+      "countdownActive": true
+    },
+    "leftCluster": {
+      "logo": "PLAY TECH STORE",
+      "logoSub": "IMPORTADOS & HOMOLOGADOS",
+      "hamburgerTrigger": {
+        "label": "menu",
+        "secondaryTriggerLabel": "TODAS AS CATEGORIAS"
+      }
+    },
+    "centerNavigation": [
+      {
+        "label": "áudio & som",
+        "hasDropdown": true,
+        "featuredTag": "97 produtos",
+        "subItems": [
+          { "title": "Caixas de Som Bluetooth RGB", "skuExample": "CS-4404", "tag": "-18% OFF" },
+          { "title": "Linha Sabala Portátil Potente", "skuExample": "DR-051", "tag": "Premium" },
+          { "title": "Linha Kimiso Woofer & Microfone", "skuExample": "KIMISO-QS1304", "tag": "TWS" },
+          { "title": "Caixas Compactas Casa & Escritório", "skuExample": "A1-128 / A1-130", "tag": "Graves Profundos" },
+          { "title": "Fones de Ouvido Bluetooth", "skuExample": "Linha TWS", "tag": "Alta Procura" }
+        ]
+      },
+      {
+        "label": "lançamentos",
+        "hasDropdown": true,
+        "subItems": [
+          { "title": "Mini Projetor Smart HY320 4K Android TV Wi-Fi 6", "price": 499.90, "tag": "Cinema 150 pol" },
+          { "title": "Console Game Stick X3 Pro Ultra HD 8K (50.000 Jogos)", "price": 199.90, "tag": "2 Controles Sem Fio" },
+          { "title": "Smartwatches Linha Ultra & Série 8", "price": 199.90, "tag": "Lançamento" },
+          { "title": "Aspirador Portátil Recarregável 2 em 1", "price": 29.99, "tag": "-43% Novo" }
+        ]
+      },
+      {
+        "label": "acessórios",
+        "hasDropdown": true,
+        "subItems": [
+          { "title": "Carregadores e Cabos (31)", "items": ["Carregador Rápido Smart LE-513", "Cabo Magnético Indução Peining", "Cabo Flat CHEN"] },
+          { "title": "Informática (28)", "items": ["Adaptador Wi-Fi USB 300Mbps Atomo", "Conversor VGA para HDMI 1080p", "Pen Drive 32GB ONE-X Metal"] },
+          { "title": "Automotivo e Acessórios (27)", "items": ["Carregador Veicular PD38W Alumínio", "Adaptador Bluetooth para Carro", "Transmissor Veicular FM/MP3"] },
+          { "title": "Iluminação (27)", "items": ["Ring Light LED 12 Pol com Tripé", "Fita LED RGB 5051 Sensor Sonoro", "Kit Refletor Solar 200W IP65"] },
+          { "title": "Cozinha e Utensílios (15)", "items": ["Garrafa Térmica LED 500ml", "Caneca Mixer Automática 400ml", "Mini Liquidificador USB Shake"] }
+        ]
+      },
+      {
+        "label": "game stick & retrô",
+        "hasDropdown": false,
+        "isBoldHighlight": true,
+        "neonBadge": "8K ULTRA"
+      },
+      {
+        "label": "ofertas",
+        "hasDropdown": false,
+        "isBoldHighlight": true,
+        "neonBadge": "BLACK FRIDAY"
+      },
+      {
+        "label": "para empresas",
+        "hasDropdown": false,
+        "isBoldHighlight": true,
+        "url": "mailto:empresas@playtechbr.com.br",
+        "tooltip": "Compras com CNPJ (Atacado e Varejo)"
+      }
+    ],
+    "rightActionCluster": {
+      "searchPlaceholder": "O que você está procurando? (Projetor 4K, Game Stick, Sabala...)",
+      "leadRewardTrigger": {
+        "topText": "Cadastre-se e",
+        "boldText": "GANHE ATÉ R$ 200*",
+        "modalTitle": "DESCONTO EXCLUSIVO NA PRIMEIRA COMPRA",
+        "modalSubtitle": "Cadastre seu e-mail e WhatsApp para destravar ofertas secretas de Black Friday da PlayTech."
+      },
+      "support": {
+        "whatsapp": "+55 61 99661-3292",
+        "email": "sac@playtech.com.br"
+      }
+    }
+  },
+  "menuDrawerMotorola": [
+    { "label": "cadastre-se e ganhe até R$ 200", "isHero": true, "type": "promo" },
+    { "label": "ofertas", "isBold": true, "badge": "BLACK FRIDAY", "type": "filter" },
+    { "label": "cupons de desconto", "isBold": false, "couponCode": "PLAYTECH10", "type": "coupon" },
+    { "label": "projetores & câmeras", "hasSub": true, "slug": "projetores-e-cameras", "count": 13 },
+    { "label": "game stick & retro", "hasSub": true, "slug": "acessorios-para-jogos", "count": 22 },
+    { "label": "áudio & som", "hasSub": true, "slug": "audio", "count": 97 },
+    { "label": "smartwatches", "hasSub": true, "slug": "smartwatches", "count": 2 },
+    { "label": "acessórios & cabos", "hasSub": true, "slug": "carregadores-e-cabos", "count": 31 },
+    { "label": "iluminação & estúdio", "hasSub": true, "slug": "iluminacao", "count": 27 },
+    { "label": "informática & redes", "hasSub": true, "slug": "informatica", "count": 28 },
+    { "label": "automotivo & utilidades", "hasSub": true, "slug": "automotivo-e-acessorios", "count": 27 },
+    { "label": "cozinha & casa inteligente", "hasSub": true, "slug": "cozinha-e-utensilios", "count": 15 },
+    { "label": "playtech ai", "badge": "NOVO", "badgeColor": "pink", "type": "ai" },
+    { "label": "programa de fidelidade PlayPoints", "type": "loyalty" },
+    { "label": "playtech empresas - compre com CNPJ", "isBold": true, "type": "b2b" }
+  ],
+  "categoriesDirectoryBar": [
+    { "name": "SMARTWATCHES", "count": 2, "slug": "smartwatches" },
+    { "name": "PROMOÇÕES", "count": 1, "slug": "promocoes" },
+    { "name": "PROJETORES E CÂMERAS", "count": 13, "slug": "projetores-e-cameras" },
+    { "name": "INFORMÁTICA", "count": 28, "slug": "informatica" },
+    { "name": "ILUMINAÇÃO", "count": 27, "slug": "iluminacao" },
+    { "name": "FERRAMENTAS E UTILIDADES", "count": 2, "slug": "ferramentas-e-utilidades" },
+    { "name": "ELETRÔNICOS E ACESSÓRIOS", "count": 17, "slug": "eletronicos-e-acessorios" },
+    { "name": "ELETRODOMÉSTICOS E FERRAMENTAS", "count": 5, "slug": "eletrodomesticos-e-ferramentas" },
+    { "name": "COZINHA E UTENSÍLIOS", "count": 15, "slug": "cozinha-e-utensilios" },
+    { "name": "CARREGADORES E CABOS", "count": 31, "slug": "carregadores-e-cabos" },
+    { "name": "AUTOMOTIVO E ACESSÓRIOS", "count": 27, "slug": "automotivo-e-acessorios" },
+    { "name": "ÁUDIO", "count": 97, "slug": "audio" },
+    { "name": "ACESSÓRIOS PARA JOGOS", "count": 22, "slug": "acessorios-para-jogos" },
+    { "name": "ACESSÓRIOS DIVERSOS", "count": 33, "slug": "acessorios-diversos" }
+  ],
+  "guaranteesStrip": [
+    {
+      "icon": "Truck",
+      "title": "Frete Grátis",
+      "description": "Nas compras acima de R$ 250,00 para todo o Brasil via Correios/Sedex."
+    },
+    {
+      "icon": "SearchCheck",
+      "title": "Pedido Monitorado",
+      "description": "Rastreio em tempo real via WhatsApp e SMS com seguro total de carga."
+    },
+    {
+      "icon": "Headset",
+      "title": "Precisa de Atendimento?",
+      "description": "Equipe técnica dedicada em Brasília-DF via WhatsApp (61) 99661-3292."
+    },
+    {
+      "icon": "ShieldCheck",
+      "title": "Compra Segura",
+      "description": "Criptografia SSL de 256 bits e Gateway Mercado Pago / Banco Central."
+    }
+  ]
+}
+
